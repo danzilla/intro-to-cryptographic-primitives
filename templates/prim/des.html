@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="">
+        <div class="navbar-header">
+          <a href="{{ url_for('index') }}" class="navbar-brand" href="#">Primitives</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}" ">Intro</a></li>
+          <li><a href="{{ url_for('index') }}">AES</a></li>
+          <li><a href="{{ url_for('index') }}" ">DES</a></li> 
+          <li><a href="{{ url_for('index') }}" ">HMAC</a></li> 
+          <li><a href="{{ url_for('index') }}" ">2FA</a></li>
+          <li><a href="{{ url_for('index') }}" ">DIFFIE</a></li> 
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Second Container AES and DES-->
+<section id="1"  class="Allpadding container-fluid bg-3">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Symetric Encryption</h1>
+                <p>
+                    Symmetric encryption used to conceal the contents of blocks or streams of data of any size, including messages, files, encryption keys, and passwords.
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        
+        <div class="container col-md-6">
+          <h2>DES <small>Data Encryption Standard</small></h2>
+            <p>
+              DES is a symmetric encryption algorithm which essentially means it takes a single key to encrypt and the same key to decrypt. To use this encryption feature of our program it is important to keep the key a secret between you and the decryptor to ensure that the confidentiality of your message is kept. Take a look at the steps below to encrypt your message. 
+            </p>
+			<h4>Modes</h4>
+            <a data-placement="bottom" href="#" class="" title="CBC - Chain Block Cipher" data-toggle="popover" data-trigger="hover" data-content="CBC is a less efficient mode than ECB but provides great advantages in terms of security of messages compared to ECB">
+              CBC - Chain Block Cipher
+            </a><br>
+            <a data-placement="bottom" href="#" class="" title="ECB - Electronic Code Book" data-toggle="popover" data-trigger="hover" data-content="ECB is great for efficiency, but is better able to encrypt smaller messages due to vulnerabilities. Bigger messages should be encrypted in the CBC mode">
+              ECB - Electronic Code Book 
+            </a><br><br>
+            <ul class="list-group borderless">
+              <li class="nav-header disabled"><a>Plaix Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDes.desPlainText }}</li>
+              <!--
+			  <li class="nav-header disabled"><a>DES Key: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDes.desKey }}</li>
+				-->
+              <li class="nav-header disabled"><a>Encrypted Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDes.desEncMessage }}</li>
+              <li class="nav-header disabled"><a>Decrypted Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDes.desDecMessage }}</li>
+            </ul>
+        </div> 
+      
+        <div class="container col-md-6">
+            <blockquote class="blockquote">
+              <code class="m-b-0">
+                mode = "CBC"<br>
+                key = "12345678"<br>
+                #key and plain text<br>
+                desKey = des(key, mode, "\0\0\0\0\0\0\0\0")<br>                                  
+                # Encrypted message<br>
+                desEnc = desKey.encrypt(plaintext, [], PAD_PKCS5)<br>
+                desEncMessage = desEnc<br>
+                # Decrypted message<br>
+                desDec = desKey.decrypt(desEncMessage, [],PAD_PKCS5)<br>
+                desDecMessage = desDec<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/">[...]</a></footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock %}

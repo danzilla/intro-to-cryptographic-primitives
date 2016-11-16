@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="">
+        <div class="navbar-header">
+          <a href="{{ url_for('index') }}" class="navbar-brand" href="#">Primitives</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}" ">Intro</a></li>
+          <li><a href="{{ url_for('index') }}">AES</a></li>
+          <li><a href="{{ url_for('index') }}" ">DES</a></li> 
+          <li><a href="{{ url_for('index') }}" ">HMAC</a></li> 
+          <li><a href="{{ url_for('index') }}" ">2FA</a></li>
+          <li><a href="{{ url_for('index') }}" ">DIFFIE</a></li> 
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Second Container AES and DES-->
+<section id="1"  class="Allpadding container-fluid bg-3">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Data Integrity and Authentication Algorithms</h1>
+                <p>
+                    These are schemes based on the use of cryptographic algorithms designed to authenticate the identity of entities as well as to used to protect blocks of data, such as messages, from alteration
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        
+        <div class="container col-md-6">
+            <h2>HMAC <small>Hashed Message Authentication Code</small></h2>
+            <p>
+              The purpose of Hashed Message Authentication Code is to provide the means of authenticating the genuineness of data sent over a medium. In order to create the HMAC value you need three things: a hash algorithm like SHA-256, a secret key, and a message
+            </p>
+            <p>
+              Once the HMAC value is produce it is appended to the message which is then sent to the recipient. Once received the HMAC act as an authenticator to validate if the original data was modified or alter in transit. It does this by finding the HMAC value of the received message and compare it to the HMAC value received. If both HMAC values matches, then the message was not altered otherwise it was.
+            </p>          
+            <ul class="list-group borderless">
+              <li class="nav-header disabled"><a>Plain Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataHmac.hmacPlainText }}</li>
+              <li class="nav-header disabled"><a>HMAC Value: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataHmac.hash_code }}</li>
+              <li class="nav-header disabled"><a>Shared Key: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataHmac.shared_key }}</li>
+            </ul>
+        </div> 
+        <div class="container col-md-6">
+            <blockquote class="blockquote">
+                <code class="m-b-0">
+                shared_key = os.urandom(16)
+                <br># Create a HMAC object
+                <br>digest = hmac.HMAC(shared_key, hashes.SHA256(), backend=default_backend())
+                <br># enter the message has input to be hased in bytes
+                <br>plaintext = str.encode(hmacPlainText)
+                <br>digest.update(plaintext)
+                <br># Finalized and produce the HMAC that will be attached to the message
+                <br>hash_code = digest.finalize()<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/mac/hmac/">[...]</a></footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock %}

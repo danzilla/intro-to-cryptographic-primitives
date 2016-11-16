@@ -1,0 +1,363 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="">
+        <div class="navbar-header">
+          <a href="{{ url_for('index') }}" class="navbar-brand" href="#">Primitives</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#0">Intro</a></li>
+          <li><a href="#1">AES</a></li>
+          <li><a href="#1">DES</a></li> 
+          <li><a href="#2">HMAC</a></li> 
+          <li><a href="#2">2FA</a></li>
+          <li><a href="#3">DIFFIE</a></li> 
+        </ul>
+    </div>
+</nav>
+
+
+
+<!-- Intro Container Crypto-->
+<section id="0"  class="Allpadding container bg-3">
+    <div class="primitive container">  
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Cryptographic Algorithms</h1>
+                <hr class="normalLine">
+            </div>
+        <div class="container">
+          <div class="text-center">
+                <h4>Most cryptographic algorithms can be categorized into Four groups</h4>
+          </div>
+        <div class="row container">
+            <a href="#1" class="container btn btn-danger">
+                <h4>Symmetric encryption</h4>
+                <p>
+                    Used to conceal the contents of blocks or streams of data of any size, including messages, files, encryption keys, and passwords.
+                </p>                
+            </a>
+            <a href="#3" class="container btn btn-success">
+                <h4>Asymmetric encryption</h4>
+                <p>
+                Used to conceal small blocks of data, such as encryption keys and hash function values, which are used in digital signatures.
+                </p>
+            </a>   
+            <a href="#2" class="container btn btn-info">
+                <h4>Data integrity algorithms</h4>
+                <p>
+                    Used to protect blocks of data, such as messages, from alteration.
+                </p>                
+            </a>
+            <a href="#2" class="container btn btn-warning">
+                <h4>Authentication protocols</h4>
+                <p>
+                    These are schemes based on the use of cryptographic algorithms designed to authenticate the identity of entities
+                </p>                
+            </a>
+        </div>
+        </div>
+        </div>
+    </div>
+</section>
+<!-- Second Container AES and DES-->
+<section id="1"  class="Allpadding container-fluid bg-1">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Symetric Encryption</h1>
+                <p>
+                    Symmetric encryption used to conceal the contents of blocks or streams of data of any size, including messages, files, encryption keys, and passwords.
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        <div class="container col-md-6">
+            <h2>AES <small>Advanced Encryption Standard</small></h2>
+            <p>
+                AES is a block cipher. The plaintext is broken up into 128 byte chunks which are Encrypted separately. Ideally, the Encrypted ciphertext of each block is XORed with the plaintext of the next one.
+            </p>
+            <blockquote class="blockquote">
+                <code class="m-b-0">
+                plainText = "Text to encrypt: "
+                <br> getInput = aesPlainText
+                <br> backend = default_backend()
+                <br> IV_Key = os.urandom(16)
+                <br> aes_Key = os.urandom(32)
+
+                <br> secretMessage = str.encode(getInput)
+
+                <br> cipher = Cipher(algorithms.AES(aes_Key), modes.CFB(IV_Key), backend=backend)
+                <br> encryptor = cipher.encryptor()
+                <br> EncryptdText = encryptor.update(secretMessage) + encryptor.finalize()
+                <br> decryptor = cipher.decryptor()
+                <br> decryptedText = decryptor.update(EncryptdText) + decryptor.finalize()
+                <br>
+                </code>
+                <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/">[...]</a></footer>
+            </blockquote>
+            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aesModal" data-whatever="@mdo">Try AES Encryption</button>
+            <div class="modal fade" id="aesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <form action="." method="post">
+                       <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">Advanced Encryption Standard</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <input name="aesPlainText"  type="text" class="form-control" id="aesPlainText" value="Text for encryption">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button name="aesForm" type="submit" class="btn btn-primary">Encrypt message using AES</button>
+                        </div>
+                    </form>          
+                  </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="container col-md-6">
+            <h2>DES <small>Data Encryption Standard</small></h2>
+            <p>
+                DES is a symmetric block cipher encryption algorithm which essentially means it takes a single key to encrypt and the same key to decrypt.
+            </p>
+            <blockquote class="blockquote">
+              <code class="m-b-0">
+                mode = "CBC"<br>
+                key = "12345678"<br>
+                #key and plain text<br>
+                desKey = des(key, mode, "\0\0\0\0\0\0\0\0")<br>                                  
+                # Encrypted message<br>
+                desEnc = desKey.encrypt(plaintext, [], PAD_PKCS5)<br>
+                desEncMessage = desEnc<br>
+                # Decrypted message<br>
+                desDec = desKey.decrypt(desEncMessage, [],PAD_PKCS5)<br>
+                desDecMessage = desDec<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/">[...]</a></footer>
+            </blockquote>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#desModal" data-whatever="@mdo">Try DES Encryption</button>
+            <div class="modal fade" id="desModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <form action="." method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Data Encryption Standard</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input  name="desPlainText" type="text" class="form-control" placeholder="Text for encryption">
+                            </div>
+                            <!--
+                            <div class="form-group">
+                                <input  name="desBitKey" type="text" class="form-control" name="desPlain" placeholder="8 Bit key for encryption">
+                            </div>
+                            -->
+                            <div class="form-group">
+                                <select name="desMode" class="form-control">
+                                    <option value="CBC">Mode - CBC</option>
+                                    <option value="ECB">Mode - ECB</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button name="desForm" type="submit" class="btn btn-primary">Encrypt message using DES</button>
+                        </div>
+                    </form>  
+                  </div>
+                </div>
+            </div>
+           
+        </div> 
+    </div>
+</section>
+<!-- Third Container  2FA and HMAC-->
+<section id="2" class="Allpadding container-fluid bg-2">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Data Integrity and Authentication Algorithms</h1>
+                <p>
+                    These are schemes based on the use of cryptographic algorithms designed to authenticate the identity of entities as well as to used to protect blocks of data, such as messages, from alteration
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+
+        <div class="container col-md-6">
+            <h2>HMAC <small>Hashed Message Authentication Code</small></h2>
+            <p>
+	Hashed Message Authentication Code provides the means of authenticating the data received over a medium. In essence it checks if the data was alter. Currently, HMAC is use in IP Security and in other Internet protocols, such as SSL
+            </p>
+          <blockquote class="blockquote">
+              <code class="m-b-0">
+                shared_key = os.urandom(16)
+                <br># Create a HMAC object
+                <br>digest = hmac.HMAC(shared_key, hashes.SHA256(), backend=default_backend())
+                <br># enter the message has input to be hased in bytes
+                <br>plaintext = str.encode(hmacPlainText)
+                <br>digest.update(plaintext)
+                <br># Finalized and produce the HMAC that will be attached to the message
+                <br>hash_code = digest.finalize()<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/mac/hmac/">[...]</a></footer>
+          </blockquote>
+            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hmacModal" data-whatever="@mdo">Try HMAC Encryption</button>
+            <div class="modal fade" id="hmacModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <form action="." method="post">
+                       <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">Hashed Message Authentication Code</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <input name="hmacPlainText"  type="text" class="form-control" id="hmacPlainText" value="Text for encryption">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button name="hmacForm" type="submit" class="btn btn-primary">Encrypt message using HMAC</button>
+                        </div>
+                    </form>          
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="container col-md-6">
+            <h2>2FA <small>Two-factor authentication</small></h2>
+            <p>
+                Two-factor authentication is a security process in which the user provides two means of identification from separate categories of credentials; one is typically a physical/software generated token, such as a card or Secure ID, and the other is typically something memorized, such as a security code.
+            </p>
+            <blockquote class="blockquote">
+              <code class="m-b-0">
+                #Key is a secret key which is being randomly generated bytes<br>
+                key = os.urandom(20)<br>
+                #HOTP is an HMAC one-time password algorithm<br>
+                hotp = HOTP(key, 6, SHA1(), backend=default_backend())<br>
+                #Hotp.generate, generates the random 6 digit token<br>
+                hotp_value = hotp.generate(0)<br>
+                hotp.verify(hotp_value, 0)<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/twofactor/">[...]</a></footer>
+            </blockquote>
+            <form action="." method="post">
+                <button name="2faForm" type="submit" class="btn btn-primary">Generate random 128 bit Key and Encrypt</button>
+            </form>
+        </div> 
+    </div>
+</section>
+<!-- Fourth Container DIFFIE-->
+<section id="3" class="Allpadding container-fluid bg-3">
+   <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Asymmetric encryption</h1>
+                <p>
+                    Used to conceal small blocks of data, such as encryption keys and hash function values, which are used in digital signatures.                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        <div class="container col-md-6">
+            <h2>Diffie-Hellman</h2>            
+            <p>
+                The purpose of the algorithm is to enable two users to securely exchange a key that can then be used for subsequent symmetric encryption of messages. The algorithm itself is limited to the exchange of secret values
+            </p>
+        </div> 
+        <div class="container col-md-6">
+            <h2>Diffie algorithm</h2>
+
+            <blockquote class="blockquote">
+              <code class="m-b-0">
+                #Compute Public Key for first user<br>
+                Ya = (a ** Xa) % diifPlainText<br>
+                #Compute Public Key for second user<br>
+                Yb = (a ** Xb) % diifPlainText<br>
+                #Compute shared key<br>
+                Ka = (Yb ** Xa) % diifPlainText<br>
+                Kb = (Ya ** Xb) % diifPlainText<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="#">Cryptography and Network Security: Principles
+and Practice, Sixth Edition - Pg: 289</a></footer>
+            </blockquote>
+            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#diffModal" data-whatever="@mdo">Diffie Encryption</button>
+            <div class="modal fade" id="diffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="." method="post">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="exampleModalLabel">Example - Diffie</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                  <label for="email">Prime Number:</label>
+                                  <input name="diifPlainText"  type="text" class="form-control" id="hmacPlainText" value="53">
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Person A - Private Key:</label>
+                                  <input name="diffPub1"  type="text" class="form-control" id="hmacPlainText" value="32">
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Person B - Private Key:</label>
+                                  <input name="diffPub2"  type="text" class="form-control" id="hmacPlainText" value="11">
+                                </div>                            
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button name="diffForm" type="submit" class="btn btn-primary">Encrypt message using Diffie</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Intro Container Crypto-->
+<section id="4"  class="Allpadding  container-fluid bg-4">
+    <div class="primitive container">  
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Cryptographic Algorithms</h1>
+                <hr class="normalLine">
+            </div>
+        <div class="container">
+        <div class="row container">
+            <a class="container btn btn-info">
+                <h3>Cryptography and Network Security (INFR 3600U)</h3>
+                <h4>Proffesor Miguel Vargas Martin, PhD, PEng</h4>
+                <h4>Aman Joseph <small>100584560</small></h4>
+                <h4>Randy Rashid <small>100398932</small></h4>
+                <h4>Omroy Christie <small>100313759</small></h4>
+                <h4>Rahul Khinvasara <small>100344610</small></h4>
+                <h4>Danustan Alphonza <small>100446688</small></h4>
+            </a>
+        </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

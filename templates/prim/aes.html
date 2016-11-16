@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="">
+        <div class="navbar-header">
+          <a href="{{ url_for('index') }}" class="navbar-brand" href="#">Primitives</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}" ">Intro</a></li>
+          <li><a href="{{ url_for('index') }}">AES</a></li>
+          <li><a href="{{ url_for('index') }}" ">DES</a></li> 
+          <li><a href="{{ url_for('index') }}" ">HMAC</a></li> 
+          <li><a href="{{ url_for('index') }}" ">2FA</a></li>
+          <li><a href="{{ url_for('index') }}" ">DIFFIE</a></li> 
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Second Container AES and DES-->
+<section id="1"  class="Allpadding container-fluid bg-3">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Symetric Encryption</h1>
+                <p>
+                    Symmetric encryption used to conceal the contents of blocks or streams of data of any size, including messages, files, encryption keys, and passwords.
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        
+        <div class="container col-md-6">
+          <h2>AES <small>Advanced Encryption Standard</small></h2>
+            <p>
+                AES is a block cipher. The plaintext is broken up into 128 byte chunks which are encrypted seperately. Ideally, the encrypted ciphertext of each block is XORed with the plaintext of the next one.
+            </p>
+          <h4>IV - Initialization vector
+            <small> 
+              is a block of bits that is used by several modes to randomize the encryption. Sort of works like adding salt value to a Hash function to make "uniqe"
+            </small>
+          </h4>
+          <h4>Padding
+            <small> 
+              is to add null bytes to the plaintext to bring its length up to a multiple of the block size. Mostly used for ECB and CBC modes
+            </small>
+          </h4>
+          <h4>Modes</h4>
+            <a data-placement="bottom" href="#" class="" title="CFB - Cipher Feedback" data-toggle="popover" data-trigger="hover" data-content="Each ciphertext block gets ‘fed back’ into the encryption process in order to encrypt the next plaintext block">
+              CFB - Cipher Feedback 
+            </a><br>
+            <a data-placement="bottom" href="#" class="" title="CBC - Cipher Blocking Chaining" data-toggle="popover" data-trigger="hover" data-content="CBC mode of operation provides message dependence for generating ciphertext and makes the system non-deterministic.">
+              CBC - Cipher Blocking Chaining
+            </a><br>
+            <a data-placement="bottom" href="#" class="" title="OFB - Output Feedback " data-toggle="popover" data-trigger="hover" data-content="It involves feeding the successive output blocks from the underlying block cipher back to it. These feedback blocks provide string of bits to feed the encryption algorithm which act as the key-stream generator as in case of CFB mode.">
+              OFB - Output Feedback 
+            </a>
+            <br> <br>
+            <ul class="list-group borderless">
+              <li class="nav-header disabled"><a>Random Generated AES Key: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataAes.aes_Key }}</li>
+              <li class="nav-header disabled"><a>IV Key: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataAes.cfb_Key }}</li>
+              <li class="nav-header disabled"><a>Encrypted Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataAes.encryptedText }}</li>
+              <li class="nav-header disabled"><a>Decrypted Text: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataAes.decryptedText }}</li>
+            </ul>
+
+        </div> 
+        <div class="container col-md-6">
+            <blockquote class="blockquote">
+                <code class="m-b-0">
+                plainText = "Text to encrypt: "
+                <br> getInput = aesPlainText
+                <br> backend = default_backend()
+                <br> IV_Key = os.urandom(16)
+                <br> aes_Key = os.urandom(32)
+
+                <br> secretMessage = str.encode(getInput)
+
+                <br> cipher = Cipher(algorithms.AES(aes_Key), modes.CFB(IV_Key), backend=backend)
+                <br> encryptor = cipher.encryptor()
+                <br> encryptedText = encryptor.update(secretMessage) + encryptor.finalize()
+                <br> decryptor = cipher.decryptor()
+                <br> decryptedText = decryptor.update(encryptedText) + decryptor.finalize()                           
+                </code>
+                <footer class="blockquote-footer">Source <a href="https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/">[...]</a></footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock %}

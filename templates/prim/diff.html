@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="">
+        <div class="navbar-header">
+          <a href="{{ url_for('index') }}" class="navbar-brand" href="#">Primitives</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}" ">Intro</a></li>
+          <li><a href="{{ url_for('index') }}">AES</a></li>
+          <li><a href="{{ url_for('index') }}" ">DES</a></li> 
+          <li><a href="{{ url_for('index') }}" ">HMAC</a></li> 
+          <li><a href="{{ url_for('index') }}" ">2FA</a></li>
+          <li><a href="{{ url_for('index') }}" ">DIFFIE</a></li> 
+        </ul>
+    </div>
+</nav>
+
+<!-- Second Container AES and DES-->
+<section id="1"  class="Allpadding container-fluid bg-3">
+    <div class="primitive container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Asymmetric encryption</h1>
+                <p>
+                    Used to conceal small blocks of data, such as encryption keys and hash function values, which are used in digital signatures. 
+                </p>
+                <hr class="normalLine">
+            </div>
+        </div>
+        
+        <div class="container col-md-6">
+            <h2>Diffie-Hellman</h2>            
+          <p>
+          After implementing this primitive, two Users mutually agree on a Prime Number that will be shared together and generator in clear text. Then, both users will generate a random number to be used as a private key and will not divulge this information to any other party. Both users should memorize their private key as well. 
+          </p>
+          <p>
+            So at this stage, the only information a third party will have are the Prime Number and Generator.  Now both users will have a Public Key that is computed from their respective secret key and prime number. Both public keys will be then shared to each other over a public domain.  So at this stage, a third party will get both users public key.
+          </p>
+          <p>
+            After sharing both public keys to each other, both users will receive the same shared key that is computed from their respective secret keys, prime numbers and prime number. Now both users can exchange information with each other with their shared key, without a third party interfering.   
+          </p>          
+            <ul class="list-group borderless">
+              <li class="nav-header disabled"><a>Entered Prime Number: </a></li>
+                <li class="noOverFlow list-group-item">{{ dataDiff.prime }}</li>
+              <li class="nav-header disabled"><a>Primitive root: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDiff.primitive_root }}</li>
+              <li class="nav-header disabled"><a>Public Key - A: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDiff.a_pupKey }}</li>
+              <li class="nav-header disabled"><a>Shared Key - A: </a></li>         
+              <li class="noOverFlow list-group-item">{{ dataDiff.a_sharedKey }}</li>
+              <li class="nav-header disabled"><a>Public Key - B: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDiff.b_pupKey }}</li>              
+              <li class="nav-header disabled"><a>Shared Key - B: </a></li>
+              <li class="noOverFlow list-group-item">{{ dataDiff.b_sharedKey }}</li>
+            </ul>
+
+        </div> 
+        <div class="container col-md-6">
+            <blockquote class="blockquote">
+              <code class="m-b-0">
+                #Compute Public Key for first user<br>
+                Ya = (a ** Xa) % diifPlainText<br>
+                #Compute Public Key for second user<br>
+                Yb = (a ** Xb) % diifPlainText<br>
+                #Compute shared key<br>
+                Ka = (Yb ** Xa) % diifPlainText<br>
+                Kb = (Ya ** Xb) % diifPlainText<br>
+              </code>
+              <footer class="blockquote-footer">Source <a href="#">Cryptography and Network Security: Principles
+and Practice, Sixth Edition - Pg: 289</a></footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock %}
